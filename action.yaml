@@ -1,9 +1,13 @@
 name: 'Rotate Service Principal Secret'
 description: 'Rotate the Service Principal Secret'
 inputs:
-  client-id:  # id of input
+  client-id:
     description: 'The client/application id to rotate'
     required: true    
+  secret-validity-in-days:
+    description: 'New secret validity in days'
+    required: true
+    default: '90'
 outputs:
   new-secret:
     description: "The newly generated secret"
@@ -15,8 +19,8 @@ runs:
       shell: bash      
       run: |      
         my_app_id=${{ inputs.client-id }}      
- 
-        client_secret_end_date=$(date -d '+90 days' +%F)
+        secret_validity_in_days=${{ inputs.secret-validity-in-days }}
+        client_secret_end_date=$(date -d "+$secret_validity_in_days days" +%F)
         client_secret_name=secret_$clientSecretEndDate
            
         # add new secret

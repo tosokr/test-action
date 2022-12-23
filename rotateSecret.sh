@@ -1,6 +1,7 @@
-my_app_id=$1
+my_app_id=''
+secret_validity_in_days='90'
 
-client_secret_end_date=$(date -d '+90 days' +%F)
+client_secret_end_date=$(date -d "+$secret_validity_in_days days" +%F)
 client_secret_name=secret_$clientSecretEndDate
            
 # add new secret
