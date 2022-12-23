@@ -1,0 +1,16 @@
+name: 'Rotate Service Principal Secret'
+description: 'Rotate the Service Principal Secret'
+inputs:
+  client-id:  # id of input
+    description: 'The client/application id to rotate'
+    required: true    
+outputs:
+  new-secret:
+    description: "The newly generated secret"
+    value: ${{ steps.rotate-secret.outputs.my_secret }}
+runs:
+  using: "composite"
+  steps:   
+    - id: rotate-secret
+      run: rotateSecret.sh ${{ inputs.client-id }}
+      shell: bash      
