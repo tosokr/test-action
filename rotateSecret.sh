@@ -1,4 +1,4 @@
- my_app_id=$1
+my_app_id=$1
 
 client_secret_end_date=$(date -d '+90 days' +%F)
 client_secret_name=secret_$clientSecretEndDate
