@@ -4,11 +4,11 @@ Simple GitHub Action that generates new secret and deletes expired secrets for a
 
 ## Recommendation
 
-Use [federated identity](https://docs.microsoft.com/en-us/graph/api/resources/federatedidentitycredentials-overview?view=graph-rest-beta) to connect to Azure (for the azure/login action).
+Use [federated identity](https://learn.microsoft.com/en-us/azure/developer/github/connect-from-azure?tabs=azure-portal%2Clinux#use-the-azure-login-action-with-openid-connect) to connect to Azure (for the azure/login action).
 
 ## Prerequisites
 
-<GITHUB_ACTION_AZURE_CLIENT_ID> - is the application/client id of the service principal (the enterprise application) with a configured federated identity that you use in the azure/login action
+<GITHUB_ACTION_AZURE_CLIENT_ID> - is the application(client) id of the service principal (the enterprise application) with a configured federated identity that you use in the azure/login action
 
 <GITHUB_ACTION_AZURE_OBJECT_ID> - is the object id of the service principal (the enterprise application) that you use in the azure/login action. You can query the object id from AAD by using the following command:
 
@@ -24,12 +24,12 @@ Use [federated identity](https://docs.microsoft.com/en-us/graph/api/resources/fe
 
 ## Inputs
 
-* client-id - The client(application) id of the service principal that is subject to secret rotation
+* client-id - The client(application) id of the service principal that is subject to secret rotation.
 * secret-validity-in-days - Desired validity, in days, of the new secret. The default is 90 days.
 
 ## Outputs
 
-* new-secret - Newly generated secret for the provided service principal
+* new-secret - The newly generated secret for the provided service principal
 
 ## Example
 
