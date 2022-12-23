@@ -24,8 +24,55 @@ Use [federated identity](https://docs.microsoft.com/en-us/graph/api/resources/fe
 
 ## Inputs
 
+* client-id - The client(application) id of the service principal that is subject to secret rotation
+* secret-validity-in-days - Desired validity, in days, of the new secret. The default is 90 days.
+
+## Outputs
+
+* new-secret - Newly generated secret for the provided service principal
+
 ## Example
 
-```yaml
+Using the action:
 
+```yaml
+  - name: 'Rotate the secret'
+    uses: tosokr/rotate-secret@v1
+    id: rotate-secret
+    with:
+        client-id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        secret-validity-in-days: 30
+```
+
+Full example, including the login action:
+
+```yaml
+name: Example secret action
+on:
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+      
+jobs: 
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:        
+    - uses: actions/checkout@v3
+    - name: 'Az CLI login'
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}          
+        allow-no-subscriptions: true        
+    - name: 'Rotate the secret'
+      uses: tosokr/rotate-secret@v1
+      id: rotate-secret
+      with:
+        client-id: 'xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx'
+        secret-validity-in-days: 30      
+    - name: Use the value    
+      run: |
+        echo "${{ steps.rotate-secret.outputs.new-secret }}"
 ```

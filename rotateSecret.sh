@@ -1,8 +1,9 @@
-my_app_id=''
+my_app_id='381130bc-1e58-43fe-a985-59bb76cc098b'
 secret_validity_in_days='90'
 
-client_secret_end_date=$(date -d "+$secret_validity_in_days days" +%F)
-client_secret_name=secret_$clientSecretEndDate
+current_date=$(date -u +"%Y-%m-%dT%H:%M:%S")
+client_secret_end_date=$(date -d "+$secret_validity_in_days days" -u +"%Y-%m-%dT%H:%M:%S")
+client_secret_name=secret_$current_date
            
 # add new secret
 my_secret=$(az ad app credential reset --id $my_app_id --append --display-name $client_secret_name --end-date $client_secret_end_date --query password --only-show-errors --output tsv)

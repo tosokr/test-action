@@ -20,8 +20,8 @@ runs:
       run: |      
         my_app_id=${{ inputs.client-id }}      
         secret_validity_in_days=${{ inputs.secret-validity-in-days }}
-        current_date=$(date +"%Y-%m-%dT%H:%M:%S%")
-        client_secret_end_date=$(date -d "+$secret_validity_in_days days" -u +"%Y-%m-%dT%H:%M:%S%")
+        current_date=$(date -u +"%Y-%m-%dT%H:%M:%S")
+        client_secret_end_date=$(date -d "+$secret_validity_in_days days" -u +"%Y-%m-%dT%H:%M:%S")
         client_secret_name=secret_$current_date
            
         # add new secret
