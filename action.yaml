@@ -20,8 +20,9 @@ runs:
       run: |      
         my_app_id=${{ inputs.client-id }}      
         secret_validity_in_days=${{ inputs.secret-validity-in-days }}
-        client_secret_end_date=$(date -d "+$secret_validity_in_days days" +%F)
-        client_secret_name=secret_$clientSecretEndDate
+        current_date=$(date +"%Y-%m-%dT%H:%M:%S%")
+        client_secret_end_date=$(date -d "+$secret_validity_in_days days" -u +"%Y-%m-%dT%H:%M:%S%")
+        client_secret_name=secret_$current_date
            
         # add new secret
         my_secret=$(az ad app credential reset --id $my_app_id --append --display-name $client_secret_name --end-date $client_secret_end_date --query password --only-show-errors --output tsv)
