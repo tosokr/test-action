@@ -12,5 +12,5 @@ runs:
   using: "composite"
   steps:   
     - id: rotate-secret
-      run: rotateSecret.sh ${{ inputs.client-id }}
+      run: ./rotateSecret.sh ${{ inputs.client-id }}
       shell: bash      
